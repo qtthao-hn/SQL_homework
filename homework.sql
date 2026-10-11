@@ -1,6 +1,6 @@
-CREATE TABLE `customers` (
-  `customer_id` interger PRIMARY KEY,
-  `name` varchar(255),
-  `email` varchar(255) UNIQUE,
-  `city` varchar(255)
+CREATE TABLE customers (
+  customer_id INT PRIMARY KEY,
+  name VARCHAR(255),
+  email VARCHAR(255) UNIQUE,
+  city VARCHAR(255)
 );
