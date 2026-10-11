@@ -13,3 +13,13 @@ CREATE TABLE orders (
     FOREIGN KEY (customer_id)
     REFERENCES customers(customer_id)
 )
+
+SELECT 
+    customers.customer_id, 
+    customers.name,
+    orders.order_id,
+    orders.order_date
+    
+    FROM customers
+    LEFT JOIN orders
+    ON customers.customer_id = orders.customer_id;
