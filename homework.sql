@@ -23,3 +23,12 @@ SELECT
     FROM customers
     LEFT JOIN orders
     ON customers.customer_id = orders.customer_id;
+
+SELECT 
+    orders.order_id,
+    orders.order_date,
+    customers.name
+
+    FROM orders
+    LEFT JOIN customers
+    ON orders.customer_id = customers.customer_id;
