@@ -47,3 +47,33 @@ SELECT
     ON customers.customer_id = orders.customer_id
     WHERE orders.order_id IS NULL;
 
+-- Bai 6:
+CREATE TABLE products (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_name VARCHAR(255),
+    price INT
+);
+
+CREATE TABLE order_items (
+    order_item_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT,
+    product_id INT,
+    quantity INT,
+
+    FOREIGN KEY (order_id)
+    REFERENCES orders(order_id),
+    FOREIGN KEY (product_id)
+    REFERENCES products(product_id)
+);
+
+SELECT
+    products.product_id,
+    products.product_name,
+    -- in ra total_quantity hoac 0
+    COALESCE(SUM(order_items.quantity), 0)
+
+    FROM products
+    LEFT JOIN order_items
+    ON products.product_id = order_items.product_id
+    -- select id va name -> group by can co id va name
+    GROUP BY products.product_name, products.product_id;
