@@ -77,3 +77,55 @@ SELECT
     ON products.product_id = order_items.product_id
     -- select id va name -> group by can co id va name
     GROUP BY products.product_name, products.product_id;
+
+-- Bai 7
+SELECT 
+    orders.order_id,
+    orders.order_date,
+    customers.name
+
+    FROM orders
+    JOIN customers
+    ON orders.customer_id = customers.customer_id
+    WHERE MONTH(order_date) = MONTH(NOW());
+
+-- Bai 8
+SELECT 
+    order_items.order_id,
+    SUM(products.price * order_items.quantity) AS total_amount
+
+    FROM order_items
+    JOIN products
+    ON order_items.product_id = products.product_id
+    GROUP BY order_items.order_id;
+
+-- Bai 9
+SELECT 
+    orders.order_id,
+    orders.order_date,
+    customers.name,
+    SUM(order_items.quantity * products.price) AS total_amount
+
+    FROM customers
+    JOIN orders ON customers.customer_id = orders.customer_id
+    JOIN order_items ON orders.order_id = order_items.order_id
+    JOIN products ON order_items.product_id = products.product_id
+
+    GROUP BY orders.order_id, orders.order_date, customers.name;
+
+-- Bai 10
+SELECT 
+    customers.name,
+    SUM(order_items.quantity * products.price) AS total_spend
+
+    FROM customers
+    JOIN orders ON customers.customer_id = orders.customer_id
+    JOIN order_items ON orders.order_id = order_items.order_id
+    JOIN products ON order_items.product_id = products.product_id
+
+    GROUP BY customers.name
+
+    -- DESC = descending
+    ORDER BY total_spend DESC
+    -- Chi in ra dong dau tien
+    LIMIT 1;
